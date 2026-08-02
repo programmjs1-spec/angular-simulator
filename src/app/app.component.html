@@ -1,1 +1,58 @@
-<h1 style="display: flex; justify-content: center; font-family: sans-serif;">NGX SIMULATOR</h1>
+<header class="header">
+  <div class="header-top_wrapper">
+    <div class="header-top">
+      <div class="logo">
+        <img src="/images/icon/company name.svg" alt="РумТибет">
+        <span class="logo-text">{{ companyName }}</span>
+      </div>
+        <nav class="top-menu">
+          <ul class="menu-list">
+            <li><a routerLink="/">Главная</a></li>
+            <li><a routerLink="/guide">Про гида</a></li>
+            <li><a routerLink="/program">Программа тура</a></li>
+            <li><a routerLink="/price">Стоимость</a></li>
+            <li><a routerLink="/blog">Блог</a></li>
+            <li><a routerLink="/contacts">Контакты</a></li>
+          </ul>
+        </nav>
+        <button class="header-btn">Консультация</button>
+    </div>
+  </div>
+  <div class="hero-container">
+    <div class="text-center">
+      <h1>
+        Насладись прогулкой в горах <br>
+        с командой единомышленников
+      </h1>
+    </div>
+    <form class="tour-form">
+      <div class="form-group">
+        <select name="location">
+          <option selected disabled>Локация для тура</option>
+          <option>Стамбул</option>
+          <option>Каппадокия</option>
+          <option>Анталья</option>
+        </select>
+        <img class="select-icon" src="/images/icon/arrow.svg" alt="arrow">
+        <small>выберите из списка</small>
+      </div>
+      <div class="form-group">
+        <input type="date" name="date">
+        <small>укажите дату</small>
+      </div>
+      <div class="form-group">
+        <select name="participants">
+          <option selected disabled>Участники</option>
+          <option>1 человек</option>
+          <option>2 человека</option>
+          <option>3 человека</option>
+          <option>4 человека</option>
+          <option>5 человек</option>
+        </select>
+        <img class="select-icon" src="/images/icon/arrow.svg" alt="">
+        <small>выберите из списка</small>
+      </div>
+      <button class="submit-btn" type="submit">Найти программу</button>
+    </form>
+  </div>
+</header>
