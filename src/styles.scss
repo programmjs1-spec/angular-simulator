@@ -12,6 +12,19 @@
   font-weight: 100 900;
 }
 
-* {
-  font-family:'Nunito-Sans', sans-serif;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: "Nunito-Sans", sans-serif;
+}
+
+app-root {
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
