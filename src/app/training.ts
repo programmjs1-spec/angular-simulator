@@ -11,7 +11,7 @@ console.log(sum(a, b));
 
 // Задание №4.
 
-let status: "loading" | "success" | "error" = "loading";
+let newStatus: "loading" | "success" | "error" = "loading";
 
 // Задание №5.
 
@@ -46,7 +46,7 @@ function formatText(
       return text.toLowerCase();
 
     case "capitalize":
-      return text.charAt(0).toUpperCase() + text.slice(1);
+      return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 
       default:
         return text;
