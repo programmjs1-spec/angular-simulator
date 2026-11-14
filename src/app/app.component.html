@@ -1,3 +1,9 @@
+@if (isLoading) {
+  <div class="loading-screen">
+    <div class="loader" role="status" aria-label="Загрузка"></div>
+    <p>Идет загрузка...</p>
+  </div>
+} @else {
 <header class="header">
   <div class="header-top_wrapper">
     <div class="header-top">
@@ -5,54 +11,132 @@
         <img src="/images/icon/company name.svg" alt="РумТибет">
         <span class="logo-text">{{ companyName }}</span>
       </div>
-        <nav class="top-menu">
-          <ul class="menu-list">
-            <li><a routerLink="/">Главная</a></li>
-            <li><a routerLink="/guide">Про гида</a></li>
-            <li><a routerLink="/program">Программа тура</a></li>
-            <li><a routerLink="/price">Стоимость</a></li>
-            <li><a routerLink="/blog">Блог</a></li>
-            <li><a routerLink="/contacts">Контакты</a></li>
-          </ul>
-        </nav>
-        <button class="header-btn">Консультация</button>
+      <nav class="top-menu">
+        <ul class="menu-list">
+          <li><a routerLink="/">Главная</a></li>
+          <li><a routerLink="/guide">Про гида</a></li>
+          <li><a routerLink="/program">Программа тура</a></li>
+          <li><a routerLink="/price">Стоимость</a></li>
+          <li><a routerLink="/blog">Блог</a></li>
+          <li><a routerLink="/contacts">Контакты</a></li>
+        </ul>
+      </nav>
+      <button class="header-btn">Консультация</button>
+    </div>
+    <div class="header-feature">
+      <div class="header-feature-display">
+        @if (activeHeaderFeature === 'timer') {
+          <div class="header-timer">
+            {{ currentDate | date: 'dd.MM.yyyy HH:mm:ss' }}
+          </div>
+        } @else {
+          <div class="click-counter">
+            <button type="button" (click)="decreaseCount()" [disabled]="clickCount <= 0">−</button>
+            <span class="counter-value" aria-live="polite">{{ clickCount }}</span>
+            <button type="button" (click)="increaseCount()">+</button>
+          </div>
+        }
+      </div>
+      <button type="button" class="header-feature-button" (click)="toggleHeaderFeature()">
+        {{ headerFeatureButtonText }}
+      </button>
     </div>
   </div>
   <div class="hero-container">
     <div class="text-center">
-      <h1>
-        Насладись прогулкой в горах <br>
-        с командой единомышленников
-      </h1>
+      <h1>Насладись прогулкой в горах <br>с командой единомышленников</h1>
     </div>
-    <form class="tour-form">
+    <form class="tour-form" (ngSubmit)="findProgram()">
       <div class="form-group">
-        <select name="location">
-          <option selected disabled>Локация для тура</option>
+        <select name="location" [(ngModel)]="location" required>
+          <option value="" disabled>Локация для тура</option>
           <option>Стамбул</option>
           <option>Каппадокия</option>
           <option>Анталья</option>
+          <option>Измир</option>
         </select>
         <img class="select-icon" src="/images/icon/arrow.svg" alt="arrow">
         <small>выберите из списка</small>
       </div>
       <div class="form-group">
-        <input type="date" name="date">
+        <input type="date" name="date" [(ngModel)]="date" required>
         <small>укажите дату</small>
       </div>
       <div class="form-group">
-        <select name="participants">
-          <option selected disabled>Участники</option>
-          <option>1 человек</option>
-          <option>2 человека</option>
-          <option>3 человека</option>
-          <option>4 человека</option>
-          <option>5 человек</option>
+        <select name="participants" [(ngModel)]="participants" required>
+          <option value="" disabled>Участники</option>
+          <option value="1">1 человек</option>
+          <option value="2">2 человека</option>
+          <option value="3">3 человека</option>
+          <option value="4">4 человека</option>
+          <option value="5">5 человек</option>
         </select>
         <img class="select-icon" src="/images/icon/arrow.svg" alt="">
         <small>выберите из списка</small>
       </div>
-      <button class="submit-btn" type="submit">Найти программу</button>
-    </form>
+      <button class="sections-button" id="form-button" type="submit" [disabled]="isFormInvalid">
+        Найти программу
+      </button>
+    </form> 
+    <div class="live-input">
+      <label for="liveInput"></label>
+      <input id="liveInput" type="text" name="liveInput" [(ngModel)]="liveInputValue"
+        placeholder="Живой инпут"
+      >
+      <p class="live-input-result">{{ liveInputValue || 'Введенный текст' }}</p>
+    </div>
   </div>
 </header>
+
+<section class="first-section">
+  <div class="first-section_img-wrapper">
+    <img src="/images/photo/fog.png" alt="туман" class="first-section_fog">
+    <img src="/images/photo/house-in-forest.jpg" alt="домик" class="first-section_house">
+    <button class="image-button">
+      <img src="/images/icon/play-button.svg" alt="смотреть видео">
+    </button>
+  </div>
+  <div class="first-section_right">
+    <div class="rigt_title">
+      <span>о нашем походе</span>
+      <h2>Исследуйте все горные массивы <br> мира вместе с нами</h2>
+    </div>
+    <p>Его корни уходят в один фрагмент классической латыни 45 года <br>
+      н.э., то есть более двух тысячелетий назад. Ричард МакКлинток,<br>
+      профессор латыни из колледжа Hampden-Sydney, штат <br>
+      Вирджиния, взял одно из самых странных слов в Lorem Ipsum, <br>
+      "consectetur"и занялся его поисками в классической латинской <br>
+      литературе.</p>
+    <button class="sections-button">Программа тура</button>
+  </div>
+</section>
+<section class="second-section">
+  <div class="second_text-wrapper">
+    <div class="second_title-wrapper">
+      <span>наше предложение</span>
+      <h2>Лучшие программы для тебя</h2>
+    </div>
+    <p>Его корни уходят в один фрагмент классической латыни 45 года <br>
+      н.э., то есть более двух тысячелетий назад. Ричард МакКлинток,<br>
+      профессор латыни из колледжа.</p>
+    <div class="programs_list">
+      @for (program of programs; track program.title) {
+        <article class="program_card">
+          <img class="program_image" [src]="program.image" [alt]="program.title">
+          <div class="program_text-wrapper">
+            <h3>{{ program.title }}</h3>
+            <p>{{ program.description }}</p>
+          </div>
+        </article>
+      }
+    </div>
+    <button class="sections-button">Стоимость программ</button>
+  </div>
+  <div class="second_picture-wrapper">
+    <img src="/images/photo/cup-of-tea.jpg" alt="чашка">
+    <img src="/images/photo/canyon.jpg" alt="каньон">
+    <img src="/images/photo/snowmobile.jpg" alt="снегоход">
+    <img src="/images/photo/orange-clay.jpg" alt="река">
+  </div>
+</section>
+}
