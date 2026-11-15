@@ -3,18 +3,24 @@ import './training';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Color } from '../enums/Color';
 import { Collection } from '../collection';
+import { MessageService, Message, MessageType } from './services/message.service';
+import { StorageService } from './services/storage.service';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, DatePipe],
+  imports: [FormsModule, DatePipe, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
+  
+  protected readonly MessageType = MessageType;
+
   companyName = 'РУМТИБЕТ';
 
   // Искусственная загрузка страницы
@@ -61,7 +67,68 @@ export class AppComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor() {
+  popularDestinations = [
+    {
+      id: 1,
+      title: 'Озеро возле гор',
+      subtitle: 'романтическое приключение',
+      price: '480 $',
+      rating: '4.9',
+      image: '/images/photo/boat.jpg'
+    },
+    {
+      id: 2,
+      title: 'Ночь в горах',
+      subtitle: 'в компании друзей',
+      price: '500 $',
+      rating: '4.5',
+      image: '/images/photo/night-in-the-mountains.jpg'
+    },
+    {
+      id: 3,
+      title: 'Растяжка в горах',
+      subtitle: 'для тех, кто забоится о себе',
+      price: '230 $',
+      rating: '5.0',
+      image: '/images/photo/stretching-in-the-mountains.jpg'
+    },
+  ]
+
+  posts = [
+    {
+      id: 1,
+      title: 'Красивая Италия, какая она в реальности?',
+      description: 'Для современного мира базовый вектор\nразвития предполагает независимые\nспособы реализации соответствующих\nусловий активизации.',
+      date: '01/04/2023',
+      imageUrl: '/images/photo/Italy.jpg'
+    },
+    {
+      id: 2,
+      title: 'Долой сомнения! Весь мир открыт для вас!',
+      description: 'Для современного мира базовый вектор\nразвития предполагает независимые\nспособы реализации соответствующих\nусловий активизации ... независимые\nспособы реализации соответствующих...',
+      date: '01/04/2023',
+      imageUrl: '/images/photo/airplane.jpg'
+    },
+    {
+      id: 3,
+      title: 'Как подготовиться к путешествию в одиночку? ',
+      description: 'Для современного мира базовый вектор\nразвития предполагает.',
+      date: '01/04/2023',
+      imageUrl: '/images/photo/narrow-street.jpg'
+    },
+    {
+      id: 4 ,
+      title: 'Индия ... летим?',
+      description: 'Для современного мира базовый.',
+      date: '01/04/2023',
+      imageUrl: '/images/photo/India.jpg'
+    } 
+  ];
+
+  constructor(
+    private messageService: MessageService,
+    private storageService: StorageService
+  ) {
     console.log(this.isPrimaryColor(Color.Red));
 
     this.saveLastVisit();
@@ -83,7 +150,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // Искусственная загрузка на 2 секунды
     this.loadingTimeout = setTimeout(() => {
       this.isLoading = false;
-    }, 2000);
+    }, 1000);
   }
   
   ngOnDestroy(): void {
@@ -94,6 +161,18 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.loadingTimeout !== undefined) {
       clearTimeout(this.loadingTimeout);
     }
+  }
+
+  public get messageList(): Message[] {
+    return this.messageService.messages;
+  }
+
+  public triggerToast(type: MessageType): void {
+    this.messageService.triggerToast(type);
+  }
+
+  public onCloseMessage(id: string): void {
+    this.messageService.closeMessage(id);
   }
 
   // Текст кнопки переключения
@@ -150,12 +229,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // Сохранение времени последнего посещения
   saveLastVisit(): void {
-    localStorage.setItem('lastVisit', new Date().toLocaleString());
+    this.storageService.setItem<string>('lastVisit', new Date().toLocaleString());
   }
 
   // Счётчик посещений
   saveVisitCount(): void {
-    const count = Number(localStorage.getItem('visitCount')) || 0;
-    localStorage.setItem('visitCount', String(count + 1));
+    const count = this.storageService.getItem<number>('visitCount') ?? 0;
+    this.storageService.setItem<number>('visitCount', count + 1);
   }
 }

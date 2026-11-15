@@ -107,7 +107,7 @@
       Вирджиния, взял одно из самых странных слов в Lorem Ipsum, <br>
       "consectetur"и занялся его поисками в классической латинской <br>
       литературе.</p>
-    <button class="sections-button">Программа тура</button>
+    <button class="sections-button" (click)="triggerToast(MessageType.SUCCESS)">Программа тура</button>
   </div>
 </section>
 <section class="second-section">
@@ -130,7 +130,7 @@
         </article>
       }
     </div>
-    <button class="sections-button">Стоимость программ</button>
+    <button class="sections-button" (click)="triggerToast(MessageType.INFO)">Стоимость программ</button>
   </div>
   <div class="second_picture-wrapper">
     <img src="/images/photo/cup-of-tea.jpg" alt="чашка">
@@ -139,4 +139,72 @@
     <img src="/images/photo/orange-clay.jpg" alt="река">
   </div>
 </section>
+<section class="third-section">
+  <div class="third-section_text-wrapper">
+    <span>по версии отдыхающих</span>
+    <h2>Популярные направления</h2>
+  </div>
+  <div class="third-section_img-wrapper">
+    @for (item of popularDestinations; track item.id) {
+      <div class="destination-card">
+        <img [src]="item.image" [alt]="item.title" class="destination-card_img">
+        <div class="destination-card_rating">
+          <span class="star">★</span>
+          {{ item.rating }}
+        </div>
+        <div class="destination-card_content">
+          <div class="destination-card_info">
+            <h3>{{item.title}}</h3>
+            <p>{{item.subtitle}}</p>
+          </div>
+          <div class="destination-card_price">{{item.price}}</div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+<section class="fourth-section">
+  <button class="sections-button" (click)="triggerToast(MessageType.WARN)">Рейтинг направлений</button>
+  <div class="fourth-section_text-wrapper">
+    <span>делимся впечатлениями</span>
+    <h2>Блог о путешествиях</h2>
+  </div>
+  <div class="blog-grid">
+    @for (post of posts; track post.id) {
+      <article class="blog-card">
+        <div class="blog-card_image-wrapper">
+          <img [src]="post.imageUrl" [alt]="post.title" class="blog-card_img">
+        </div>
+        <div class="blog-card_content">
+          <h3 class="blog-card_title">{{post.title}}</h3>
+          <p class="blog-card_text">{{post.description}}</p>
+          <div class="blog-card_footer">
+            <span class="blog-card_date">{{post.date}}</span>
+            <a href="#" class="blog-card_link">читать статью</a>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+<button class="sections-button" id="other-btn" (click)="triggerToast(MessageType.ERROR)">Другие материалы</button>
+<div class="messages-container">
+  @for (item of messageList; track item.id) {
+    <ng-container *ngTemplateOutlet="msgTemplate; context: { messageObj: item }"></ng-container>
+  }
+</div>
+<ng-template #msgTemplate let-msg="messageObj">
+  <div class="message-card" [ngClass]="msg.type.toLowerCase()">
+    <div class="message-icon">
+      <img src="/images/icon/message-icon.svg" alt="Письмо">
+    </div>
+    <div class="message-body">
+      <div class="message-title">{{ msg.type }}</div>
+      <div class="message-text">{{ msg.text }}</div>
+    </div>
+    <button class="close-btn" (click)="onCloseMessage(msg.id)">
+      <img src="/images/icon/close-circle.svg" alt="Закрыть">
+    </button>
+  </div>
+</ng-template>
 }
