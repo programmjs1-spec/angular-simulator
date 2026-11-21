@@ -1,0 +1,171 @@
+<div class="home-hero">
+<div class="hero-container">
+    <div class="text-center">
+      <h1>Насладись прогулкой в горах <br>с командой единомышленников</h1>
+    </div>
+    <form class="tour-form" (ngSubmit)="findProgram()">
+      <div class="form-group">
+        <select name="location" [(ngModel)]="location" required>
+          <option value="" disabled>Локация для тура</option>
+          <option>Стамбул</option>
+          <option>Каппадокия</option>
+          <option>Анталья</option>
+          <option>Измир</option>
+        </select>
+        <img class="select-icon" src="/images/icon/arrow.svg" alt="arrow">
+        <small>выберите из списка</small>
+      </div>
+      <div class="form-group">
+        <input type="text" name="date" [(ngModel)]="date"
+          placeholder=" Дата похода" onfocus="this.type='date';
+          this.showPicker && this.showPicker()"
+          onblur="if(!this.value) this.type='text'"
+          required>
+        <svg class="date-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <small>укажите дату</small>
+      </div>
+      <div class="form-group">
+        <select name="participants" [(ngModel)]="participants" required>
+          <option value="" disabled>Участники</option>
+          <option value="1">1 человек</option>
+          <option value="2">2 человека</option>
+          <option value="3">3 человека</option>
+          <option value="4">4 человека</option>
+          <option value="5">5 человек</option>
+        </select>
+        <img class="select-icon" src="/images/icon/arrow.svg" alt="">
+        <small>выберите из списка</small>
+      </div>
+      <button class="sections-button" id="form-button" type="submit" [disabled]="isFormInvalid">
+        Найти программу
+      </button>
+    </form> 
+    <div class="live-input">
+      <label for="liveInput"></label>
+      <input id="liveInput" type="text" name="liveInput" [(ngModel)]="liveInputValue"
+        placeholder="Живой инпут"
+      >
+      <p class="live-input-result">{{ liveInputValue || 'Введенный текст' }}</p>
+    </div>
+  </div>
+  </div>
+
+  <section class="first-section">
+  <div class="first-section_img-wrapper">
+    <img src="/images/photo/fog.png" alt="туман" class="first-section_fog">
+    <img src="/images/photo/house-in-forest.jpg" alt="домик" class="first-section_house">
+    <button class="image-button">
+      <img src="/images/icon/play-button.svg" alt="смотреть видео">
+    </button>
+  </div>
+  <div class="first-section_right">
+    <div class="rigt_title">
+      <span>о нашем походе</span>
+      <h2>Исследуйте все горные массивы <br> мира вместе с нами</h2>
+    </div>
+    <p>Его корни уходят в один фрагмент классической латыни 45 года <br>
+      н.э., то есть более двух тысячелетий назад. Ричард МакКлинток,<br>
+      профессор латыни из колледжа Hampden-Sydney, штат <br>
+      Вирджиния, взял одно из самых странных слов в Lorem Ipsum, <br>
+      "consectetur"и занялся его поисками в классической латинской <br>
+      литературе.</p>
+    <button class="sections-button" (click)="showSuccess()">Программа тура</button>
+  </div>
+</section>
+<section class="second-section">
+  <div class="second_text-wrapper">
+    <div class="second_title-wrapper">
+      <span>наше предложение</span>
+      <h2>Лучшие программы для тебя</h2>
+    </div>
+    <p>Его корни уходят в один фрагмент классической латыни 45 года <br>
+      н.э., то есть более двух тысячелетий назад. Ричард МакКлинток,<br>
+      профессор латыни из колледжа.</p>
+    <div class="programs_list">
+      @for (program of programs; track program.title) {
+        <article class="program_card">
+          <img class="program_image" [src]="program.image" [alt]="program.title">
+          <div class="program_text-wrapper">
+            <h3>{{ program.title }}</h3>
+            <p>{{ program.description }}</p>
+          </div>
+        </article>
+      }
+    </div>
+    <button class="sections-button" (click)="showInfo()">Стоимость программ</button>
+  </div>
+  <div class="second_picture-wrapper">
+    <img src="/images/photo/cup-of-tea.jpg" alt="чашка">
+    <img src="/images/photo/canyon.jpg" alt="каньон">
+    <img src="/images/photo/snowmobile.jpg" alt="снегоход">
+    <img src="/images/photo/orange-clay.jpg" alt="река">
+  </div>
+</section>
+<section class="third-section">
+  <div class="third-section_text-wrapper">
+    <span>по версии отдыхающих</span>
+    <h2>Популярные направления</h2>
+  </div>
+  <div class="third-section_img-wrapper">
+    @for (item of popularDestinations; track item.id) {
+      <div class="destination-card">
+        <img [src]="item.image" [alt]="item.title" class="destination-card_img">
+        <div class="destination-card_rating">
+          <span class="star">★</span>
+          {{ item.rating }}
+        </div>
+        <div class="destination-card_content">
+          <div class="destination-card_info">
+            <h3>{{item.title}}</h3>
+            <p>{{item.subtitle}}</p>
+          </div>
+          <div class="destination-card_price">{{item.price}}</div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+<section class="fourth-section">
+  <button class="sections-button" (click)="showWarn()">Рейтинг направлений</button>
+  <div class="fourth-section_text-wrapper">
+    <span>делимся впечатлениями</span>
+    <h2>Блог о путешествиях</h2>
+  </div>
+  <div class="blog-grid">
+    @for (post of posts; track post.id) {
+      <article class="blog-card">
+        <div class="blog-card_image-wrapper">
+          <img [src]="post.imageUrl" [alt]="post.title" class="blog-card_img">
+        </div>
+        <div class="blog-card_content">
+          <h3 class="blog-card_title">{{post.title}}</h3>
+          <p class="blog-card_text">{{post.description}}</p>
+          <div class="blog-card_footer">
+            <span class="blog-card_date">{{post.date}}</span>
+            <a href="#" class="blog-card_link">читать статью</a>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+<button class="sections-button" id="other-btn" (click)="showError()">Другие материалы</button>
+<section class="fifth-section">
+  <div class="fifth-section_text-wrapper">
+    <span>фото-отчет</span>
+    <h2>Делимся впечатлениями</h2>
+  </div>
+  <div class="gallery-grid">
+    @for (photo of galleryPhotos; track photo.id) {
+  <div class="gallery-item" [class.wide]="photo.isWide">
+    <img [src]="photo.image" [alt]="photo.alt">
+  </div>
+    }
+  </div>
+</section>
+<button class="sections-button" id="pinterest-btn">Наш pinterest</button>

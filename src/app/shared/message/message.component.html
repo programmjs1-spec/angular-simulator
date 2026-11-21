@@ -1,0 +1,20 @@
+<div class="messages-container">
+  @for (item of messageService.messages; track item.id) {
+    <div class="message-card" [ngClass]="item.type.toLowerCase()">
+
+      <div class="message-icon">
+        <img src="/images/icon/message-icon.svg" alt="Письмо">
+      </div>
+
+      <div class="message-body">
+        <div class="message-title">{{ item.type }}</div>
+        <div class="message-text">{{ item.text }}</div>
+      </div>
+
+      <button class="close-btn" (click)="onCloseMessage(item.id)">
+        <img src="/images/icon/close-circle.svg" alt="Закрыть">
+      </button>
+
+    </div>
+  }
+</div>
