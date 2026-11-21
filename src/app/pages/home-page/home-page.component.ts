@@ -12,7 +12,6 @@ import { MessageService } from '../../services/message.service';
 })
 export class HomePageComponent {
 
-  // Подключаем сервис сообщений
   constructor(private messageService: MessageService) {}
 
   // Данные формы
@@ -66,6 +65,7 @@ export class HomePageComponent {
     },
   ];
 
+  // Популярные направления
   popularDestinations = [
     {
       id: 1,
@@ -93,6 +93,7 @@ export class HomePageComponent {
     },
   ];
 
+  // Статьи блога
   posts = [
     {
       id: 1,
@@ -110,7 +111,7 @@ export class HomePageComponent {
     },
     {
       id: 3,
-      title: 'Как подготовиться к путешествию в одиночку? ',
+      title: 'Как подготовиться к путешествию в одиночку?',
       description: 'Для современного мира базовый вектор\nразвития предполагает.',
       date: '01/04/2023',
       imageUrl: '/images/photo/narrow-street.jpg'
@@ -124,6 +125,7 @@ export class HomePageComponent {
     }
   ];
 
+  // Фотогалерея
   galleryPhotos = [
     {
       id: 1,
@@ -163,8 +165,7 @@ export class HomePageComponent {
     },
   ];
 
-  // Методы для вызова сообщений из HTML
-
+  // Методы уведомлений
   showSuccess(): void {
     this.messageService.showSuccess('Успешное выполнение операции!');
   }
