@@ -1,0 +1,38 @@
+.users-container {
+  width: 100%;
+  min-height: 500px;
+  padding: 60px 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f8f7f5;
+}
+
+.users-card {
+  width: 100%;
+  max-width: 650px;
+  padding: 50px 30px;
+
+  text-align: center;
+  background: #ffffff;
+
+  border: 1px solid #e5e2dc;
+  border-radius: 16px;
+
+  box-shadow: 0 10px 30px rgba(24, 18, 30, 0.06);
+
+  h1 {
+    color: #1a3e3e;
+    font-size: 32px;
+    margin: 0 0 15px;
+  }
+
+  p {
+    color: #777777;
+    font-size: 16px;
+    margin: 0;
+  }
+}
