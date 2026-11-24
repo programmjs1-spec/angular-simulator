@@ -1,0 +1,46 @@
+<header class="header">
+  <div class="header-top_wrapper">
+    <div class="header-top">
+      <div class="logo">
+        <img src="/images/icon/company name.svg" alt="РумТибет">
+        <span class="logo-text">{{ companyName }}</span>
+      </div>
+      <nav class="top-menu">
+        <ul class="menu-list">
+
+          @for (item of navItems; track item.link) {
+            <li>
+              <a
+                [routerLink]="item.link"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                {{ item.title }}
+              </a>
+            </li>
+          }
+
+        </ul>
+      </nav>
+      <button class="header-btn">Консультация</button>
+    </div>
+    <div class="header-feature">
+      <div class="header-feature-display">
+        @if (activeHeaderFeature === 'timer') {
+          <div class="header-timer">
+            {{ currentDate | date: 'dd.MM.yyyy HH:mm:ss' }}
+          </div>
+        } @else {
+          <div class="click-counter">
+            <button type="button" (click)="decreaseCount()" [disabled]="clickCount <= 0">−</button>
+            <span class="counter-value" aria-live="polite">{{ clickCount }}</span>
+            <button type="button" (click)="increaseCount()">+</button>
+          </div>
+        }
+      </div>
+      <button type="button" class="header-feature-button" (click)="toggleHeaderFeature()">
+        {{ headerFeatureButtonText }}
+      </button>
+    </div>
+  </div>
+</header>

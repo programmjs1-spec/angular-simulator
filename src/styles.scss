@@ -28,3 +28,44 @@ app-root {
   outline: none;
   box-shadow: none;
 }
+
+.sections-button {
+  width: 213px;
+  height: 52px;
+  border: none;
+  border-radius: 4px;
+  background: #1a3e3e;
+  color: #fdfdfd;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    background: #245454;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 62, 62, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #1a3e3e;
+    outline-offset: 4px;
+  }
+
+  &:disabled {
+    background: #a7b3b3;
+    color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+  }
+}
